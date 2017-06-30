@@ -1,224 +1,69 @@
 <?php
-  class Autoloader
+namespace Core
+{
+  class Auto
   {
-    static public function helper($class)
+    public static function load($class)
     {
-      $filename = "core/helpers/h_" . $class . '.php';
-      if(file_exists($filename))
+      $heads = array(
+      'h_' ,
+      'layout_'  ,
+      'view_' ,
+      'model_' ,
+      'controller_' ,
+      'core_'
+      );
+      $file = "$class" . ".php";
+      foreach(scandir("core/") as $d1)
       {
-        include($filename);
-        if(class_exists($class))
+        if(is_dir("core/$d1"))
         {
-          return true;
+          foreach(scandir("core/$d1") as $d2)
+          {
+            if(is_dir("core/$d1/$d2"))
+            {
+              foreach(scandir("core/$d1/$d2") as $d3)
+              {
+                foreach($heads as $h)
+                {
+                  $tfile = $h . $file;
+                  if($tfile == $d3)
+                  {
+                    require_once("core/$d1/$d2/$tfile");
+                    return true;
+                  }
+                }
+              }
+            }
+            else
+            {
+              foreach($heads as $h)
+                {
+                  $tfile = $h . $file;
+                  if($tfile == $d2)
+                  {
+                    require_once("core/$d1/$tfile");
+                    return true;
+                  }
+                }
+            }
+          }
         }
         else
         {
-          return false;
+          foreach($heads as $h)
+            {
+              $tfile = $h . $file;
+              if($tfile == $d1)
+              {
+                require_once("core/$tfile");
+                return true;
+              }
+            }
         }
       }
-      else
-      {
-        return false;
-      }
+      return false;
     }
-    static public function controller($class)
-    {
-      $filename = "core/controller/controller_" . $class . '.php';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function layout($class)
-    {
-      $filename = "core/layout/layout_" . $class . '.php';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function model($class)
-    {
-      $filename = "core/model/model_" . $class . '.php';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function view($class)
-    {
-      $filename = "core/view/view_" . $class . '.php';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function core($class)
-    {
-      $filename = "core/core_" . $class . '.php';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function library($class)
-    {
-      $filename = "core/library/library_" . $class . '.php';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function application($class)
-    {
-      $filename = "application/" . $class . "/" . $class . ".php";
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function css($class)
-    {
-      $filename = "public/css/" . $class . '.css';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function js($class)
-    {
-      $filename = "public/js/" . $class . '.js';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-    static public function template($class)
-    {
-      $filename = "public/templates/" . $class . '.tpl';
-      if(file_exists($filename))
-      {
-        include($filename);
-        if(class_exists($class))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
+    
   }
+}

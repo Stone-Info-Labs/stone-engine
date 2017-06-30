@@ -29,21 +29,20 @@ namespace Core/Db
           }
           else
           {
-            $this->sql .= $field['type'];
-            $this->sql .= $field['type'] . '(';
-            $this->sql .= $field['size'] . ') ';
-          }
-          if($field['unique'] === true)
-          {
-            $this->sql .= 'UNIQUE ';
-          }
-          if($field['index'] === true)
-          {
-            $this->sql .= 'INDEX ';
-          }
-          if($field['null'] === false)
-          {
-            $this->sql .= 'NOT NULL ';
+              $this->sql .= $field['type'] . '(';
+              $this->sql .= $field['size'] . ') ';
+              if($field['unique'] === true)
+              {
+                $this->sql .= 'UNIQUE ';
+              }
+              if($field['index'] === true)
+              {
+                $this->sql .= 'INDEX ';
+              }
+              if($field['null'] === false)
+              {
+                $this->sql .= 'NOT NULL ';
+              }
           }
           if($cnt > 0)
           {

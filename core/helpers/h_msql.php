@@ -36,20 +36,28 @@ namespace Core/Db
         throw new Exception($e->getMessage());
       }
     }
-    public function __copy($db = '' , $un = '' , $pw = '')
+    public function __copy($db = false , $un = false , $pw = false)
     {
-      $this->dbp = $pw;
-      $this->dbu = $un;
-      $this->dbn = $db;
-      $cs = $this->cs;
-      $this->dsn = "mysql:host=$sh;dbname=$db;charset=$cs";
-      try
+      if($db)
       {
-        $this->conn = new PDO($this->dsn , $un , $pw , $this->opt);
-      }
-      catch(PDOException $e)
-      {
-        throw new Exception($e->getMessage());
+        if(!$un || !$pw)
+        {
+          throw new Exception("incorrect copy use");
+        }
+        $this->dbp = $pw;
+        $this->dbu = $un;
+        $this->dbn = $db;
+        $cs = $this->cs;
+        $sh => $this->dbh;
+        $this->dsn = "mysql:host=$sh;dbname=$db;charset=$cs";
+        try
+        {
+          $this->conn = new PDO($this->dsn , $un , $pw , $this->opt);
+        }
+        catch(PDOException $e)
+        {
+          throw new Exception($e->getMessage());
+        }
       }
     }
     public function query($table , $crud = 'r' , $values = false)

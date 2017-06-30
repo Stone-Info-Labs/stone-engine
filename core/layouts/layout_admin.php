@@ -40,6 +40,7 @@ return (object) array(
       'css' => 'Base'
     ) ,
     'admin' => 'admin/admin.css' ,
-    'base' => 'base.css'
+    'base' => 'base.css' 
+    
   )
 );
